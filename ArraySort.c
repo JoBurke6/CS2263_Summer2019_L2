@@ -17,7 +17,8 @@
 
 void printArray(int *array, int size)
 {
-    for(int i=0; i<size; i++)
+    int i = 0;
+    for(i=0; i<size; i++)
     {
         if(i != 0)
         {
@@ -30,22 +31,34 @@ void printArray(int *array, int size)
 
 void swapAdjacent(int *a, int index)
 {    
-    int *temp = a + index;
+    int temp = *(a + index);
     *(a + index) = *(a + index + 1);    
-    *(a + index + 1) = *temp;
+    *(a + index + 1) = temp;
 }
 
 int compareAdjacent(int *a, int index)
 {
-    return *a + index - *a + index + 1;
+    return *(a + index) - *(a + index + 1);
 }
 
 /**
  * TODO: implement in place sorting on an array
  * by using the two functions swapAdjacent and compareAdjacent
  */
-void inPlaceSort(/* your input parameter */)
+void inPlaceSort(int *a, int size)
 {
+    int currSize = 0;
+    for(currSize = size-1; currSize >= 0; currSize--)
+    {
+        int i = 0;
+        for(i = 0; i < currSize; i++)
+        {
+            if(compareAdjacent(a, i) > 0)
+            {
+                swapAdjacent(a, i);
+            }
+        }
+    }
 
 }
 
@@ -67,18 +80,26 @@ int main(void)
 
     int a[array_size];
 
-    /**********************
-     * TODO finish parsing the user input to fill the array
-     * 
-     * it should parse user input with scanf to fill the array with values
-     **********************/
+    int i = 0;
+    int num;
+    for(i = 0; i <= array_size-1; i++)
+    {
+        if(!scanf("%d", &num) == 1)
+        {
+            printf("bad input\n");
+            return 0;
+        }
+        else
+        {
+            a[i] = num;
+        }
+    }
 
-    printf("=== Array before Sorting = ");
     printArray(a, array_size);
 
-    inPlaceSort(/* your input parameter */);
+    inPlaceSort(a, array_size);
 
-    printf("=== Array after Sorting = ");
     printArray(a, array_size);
 
+    return EXIT_SUCCESS;
 }
