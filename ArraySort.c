@@ -84,7 +84,7 @@ int main(void)
     int num;
     for(i = 0; i <= array_size-1; i++)
     {
-        if(!scanf("%d", &num) == 1)
+        if(!(scanf("%d", &num) == 1))
         {
             printf("bad input\n");
             return 0;
